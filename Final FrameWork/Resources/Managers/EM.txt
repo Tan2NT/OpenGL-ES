@@ -1,0 +1,158 @@
+#Shaders: 6
+ID 0
+VSFile: ../Resources/Shaders/VSEffect.glsl
+FSFile: ../Resources/Shaders/FSBW.glsl
+ID 1
+VSFile: ../Resources/Shaders/VSEffect.glsl
+FSFile: ../Resources/Shaders/FSBlur.glsl
+ID 2
+VSFile: ../Resources/Shaders/VSEffect.glsl
+FSFile: ../Resources/Shaders/FSPreBloom.glsl
+ID 3
+VSFile: ../Resources/Shaders/VSEffect.glsl
+FSFile: ../Resources/Shaders/FSPostBloom.glsl
+ID 4
+VSFile: ../Resources/Shaders/VSEffect.glsl
+FSFile: ../Resources/Shaders/FSDepthOfField.glsl
+ID 5
+VSFile: ../Resources/Shaders/VSEffect.glsl
+FSFile: ../Resources/Shaders/FSGray.glsl
+
+#FBO
+NoFBO 3
+
+#Effects: 5
+
+ID 0
+Name BW
+NoPasses: 1
+PassID 0
+PassName BW
+   ShaderID 0
+   Textures: 1c, 0, 0
+   Target: 0
+   OtherData: 0.0
+ 
+ID 1
+Name Blur
+NoPasses: 6
+PassID 0
+PassName Blur
+   ShaderID 1
+   Textures: 1c, 0, 0
+   Target: 3
+   OtherData: 1.0 //Blur radius
+PassID 1
+PassName Blur
+   ShaderID 1
+   Textures: 3c, 0, 0
+   Target: 2
+   OtherData: 2.0 //Blur radius
+PassID 2
+PassName Blur
+   ShaderID 1
+   Textures: 2c, 0, 0
+   Target: 3
+   OtherData: 3.0 //Blur radius
+PassID 3
+PassName Blur
+   ShaderID 1
+   Textures: 3c, 00, 00
+   Target: 2
+   OtherData: 4.0 //Blur radius
+PassID 4
+PassName Blur
+   ShaderID 1
+   Textures: 2c, 00, 00
+   Target: 3
+   OtherData: 5.0 //Blur radius
+PassID 5
+PassName Blur
+   ShaderID 1
+   Textures: 3c, 00, 00
+   Target: 0
+   OtherData: 6.0
+ 
+ID 2
+Name Bloom
+NoPasses: 7
+PassID 0
+PassName Prebloom
+   ShaderID 2
+   Textures: 1c, 0, 0
+   Target: 2
+   OtherData: 0.9 
+PassID 1
+PassName Blur
+   ShaderID 1
+   Textures: 2c, 0, 0
+   Target: 3
+   OtherData: 5.0 //Blur radius
+PassID 2
+PassName Blur
+   ShaderID 1
+   Textures: 3c, 0, 0
+   Target: 2
+   OtherData: 9.0 //Blur radius
+PassID 3
+PassName Blur
+   ShaderID 1
+   Textures: 2c, 0, 0
+   Target: 3
+   OtherData: 17.0 //Blur radius
+PassID 4
+PassName Blur
+   ShaderID 1
+   Textures: 3c, 00, 00
+   Target: 2
+   OtherData: 31.0 //Blur radius
+PassID 5
+PassName Blur
+   ShaderID 1
+   Textures: 2c, 00, 00
+   Target: 3
+   OtherData: 43.0 //Blur radius
+PassID 6
+PassName PostBloom
+   ShaderID 3
+   Textures: 1c, 3c, 00
+   Target: 0
+   OtherData: 1.5
+ 
+ID 3
+Name DepthOfField
+NoPasses: 4
+PassID 0
+PassName Blur
+   ShaderID 1
+   Textures: 1c, 0, 0
+   Target: 3
+   OtherData: 3.0 //Blur radius
+PassID 1
+PassName Blur
+   ShaderID 1
+   Textures: 3c, 0, 0
+   Target: 2
+   OtherData: 5.0 //Blur radius
+PassID 2
+PassName Blur
+   ShaderID 1
+   Textures: 2c, 0, 0
+   Target: 3
+   OtherData: 9.0 //Blur radius
+PassID 4
+PassName DepthOfField
+   ShaderID 4
+   Textures: 1c, 3c, 1d
+   Target: 0
+   OtherData: 16.0, 0.1, 500.0, 20.0, 20.0
+
+ID 4
+Name Gray
+NoPasses: 1
+PassID 0
+PassName Gray
+   ShaderID 5
+   Textures: 1c, 0, 0
+   Target: 0
+   OtherData: 0.0
